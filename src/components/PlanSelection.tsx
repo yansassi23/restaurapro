@@ -7,16 +7,8 @@ interface PlanSelectionProps {
 }
 
 const PlanSelection = ({ onSelectPlan }: PlanSelectionProps) => {
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-
   const handlePlanSelect = (plan: Plan) => {
-    setSelectedPlan(plan);
-  };
-
-  const handleContinue = () => {
-    if (selectedPlan) {
-      onSelectPlan(selectedPlan);
-    }
+    onSelectPlan(plan);
   };
 
   return (
@@ -42,11 +34,9 @@ const PlanSelection = ({ onSelectPlan }: PlanSelectionProps) => {
           {PLANS.map((plan) => (
             <div
               key={plan.id}
-              className={`relative bg-white rounded-2xl shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-2 ${
-                selectedPlan?.id === plan.id
-                  ? 'ring-4 ring-blue-500 shadow-2xl'
-                  : 'hover:shadow-xl'
-              } ${plan.popular ? 'border-2 border-blue-500' : 'border border-gray-200'}`}
+              className={`relative bg-white rounded-2xl shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-2 hover:shadow-xl ${
+                plan.popular ? 'border-2 border-blue-500' : 'border border-gray-200'
+              }`}
               onClick={() => handlePlanSelect(plan)}
             >
               {plan.popular && (
@@ -80,37 +70,13 @@ const PlanSelection = ({ onSelectPlan }: PlanSelectionProps) => {
                   ))}
                 </ul>
 
-                <div className={`w-full py-3 px-4 rounded-lg font-semibold text-center transition-colors ${
-                  selectedPlan?.id === plan.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}>
-                  {selectedPlan?.id === plan.id ? 'Selecionado' : 'Selecionar Plano'}
+                <div className="w-full py-3 px-4 rounded-lg font-semibold text-center transition-colors bg-blue-600 text-white hover:bg-blue-700">
+                  Escolher {plan.name}
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-        {selectedPlan && (
-          <div className="text-center">
-            <div className="bg-white rounded-xl shadow-lg p-6 max-w-md mx-auto mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Plano Selecionado:</h3>
-              <p className="text-2xl font-bold text-blue-600">{selectedPlan.name}</p>
-              <p className="text-gray-600">
-                {selectedPlan.images} {selectedPlan.images === 1 ? 'foto' : 'fotos'} por R$ {selectedPlan.price}
-              </p>
-            </div>
-
-            <button
-              onClick={handleContinue}
-              className="group inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-xl font-semibold px-10 py-5 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
-            >
-              <span>Continuar com {selectedPlan.name}</span>
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );
