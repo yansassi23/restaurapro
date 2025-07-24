@@ -15,7 +15,7 @@ export const PLANS: Plan[] = [
     name: 'Básico',
     images: 1,
     price: 7,
-    paymentLink: 'https://pay.cakto.com.br/n2typzf_493515', // Você precisará atualizar com o link correto
+    paymentLink: 'https://pay.cakto.com.br/n2typzf_493515',
     features: [
       '1 foto restaurada',
       'Entrega em 24h',
@@ -29,7 +29,7 @@ export const PLANS: Plan[] = [
     price: 10,
     originalPrice: 14,
     popular: true,
-    paymentLink: 'https://pay.cakto.com.br/n2typzf_493515', // Você precisará atualizar com o link correto
+    paymentLink: 'https://pay.cakto.com.br/grgkdny_493628',
     features: [
       '2 fotos restauradas',
       'Entrega em 24h',
@@ -43,7 +43,7 @@ export const PLANS: Plan[] = [
     images: 5,
     price: 20,
     originalPrice: 35,
-    paymentLink: 'https://pay.cakto.com.br/n2typzf_493515', // Você precisará atualizar com o link correto
+    paymentLink: 'https://pay.cakto.com.br/3agd883_493630',
     features: [
       '5 fotos restauradas',
       'Entrega em 24h',
