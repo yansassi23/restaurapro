@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, MessageCircle } from 'lucide-react';
+import { Plan } from '../types/Plan';
 
 interface CustomerFormProps {
   onSubmit: (data: CustomerData) => void;
+  selectedPlan: Plan;
 }
 
 export interface CustomerData {
@@ -14,7 +16,7 @@ export interface CustomerData {
   id?: string;
 }
 
-const CustomerForm = ({ onSubmit }: CustomerFormProps) => {
+const CustomerForm = ({ onSubmit, selectedPlan }: CustomerFormProps) => {
   const [formData, setFormData] = useState<CustomerData>({
     name: '',
     email: '',
@@ -167,7 +169,7 @@ const CustomerForm = ({ onSubmit }: CustomerFormProps) => {
               type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg transition-colors"
             >
-              Continuar para Pagamento • R$ 5,00
+              Continuar para Pagamento • R$ {selectedPlan.price},00
             </button>
           </form>
         </div>

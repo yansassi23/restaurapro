@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Shield, Clock, CheckCircle, ExternalLink, Loader2 } from 'lucide-react';
 import { CustomerData } from './CustomerForm';
+import { Plan } from '../types/Plan';
 import { supabase } from '../lib/supabase';
 
 interface PaymentSectionProps {
   customerData: CustomerData;
   selectedFile: File;
+  selectedPlan: Plan;
   onPaymentSuccess: () => void;
 }
 
-const PaymentSection = ({ customerData, selectedFile, onPaymentSuccess }: PaymentSectionProps) => {
+const PaymentSection = ({ customerData, selectedFile, selectedPlan, onPaymentSuccess }: PaymentSectionProps) => {
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<'pending' | 'confirmed' | 'failed'>('pending');
   const [statusMessage, setStatusMessage] = useState('');
@@ -124,14 +126,14 @@ const PaymentSection = ({ customerData, selectedFile, onPaymentSuccess }: Paymen
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <p className="text-blue-800 text-sm">
                   <Shield className="h-4 w-4 inline mr-1" />
-                  Complete o pagamento na janela abaixo de forma segura • Pedido #{orderNumber}
+                  Após completar o pagamento de R$ {selectedPlan.price},00 para {selectedPlan.images} {selectedPlan.images === 1 ? 'foto' : 'fotos'}, clique no botão abaixo
                 </p>
               </div>
 
               {/* Iframe do Cakto */}
               <div className="border border-gray-300 rounded-lg overflow-hidden">
                 <iframe
-                  src="https://pay.cakto.com.br/n2typzf_493515"
+                  src={selectedPlan.paymentLink}
                   width="100%"
                   height="900"
                   frameBorder="0"

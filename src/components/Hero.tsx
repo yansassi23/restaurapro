@@ -84,15 +84,11 @@ const Hero = ({ onStartClick }: HeroProps) => {
             className="group relative inline-flex items-center space-x-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-xl font-semibold px-10 py-5 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
           >
             <span>Restaurar Minha Foto</span>
-            <div className="flex items-center space-x-2">
-              <span className="text-lg">•</span>
-              <span className="bg-white/20 px-3 py-1 rounded-full text-sm">R$ 5,00</span>
-            </div>
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
           
           <p className="text-sm text-gray-500 mt-6">
-            Pagamento seguro • Sem mensalidades • Garantia de satisfação
+            A partir de R$ 7,00 • Pagamento seguro • Garantia de satisfação
           </p>
         </div>
 

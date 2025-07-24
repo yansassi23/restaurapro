@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { supabase } from './lib/supabase';
+import { Plan } from './types/Plan';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import Testimonials from './components/Testimonials';
+import PlanSelection from './components/PlanSelection';
 import UploadSection from './components/UploadSection';
 import CustomerForm, { CustomerData } from './components/CustomerForm';
 import PaymentSection from './components/PaymentSection';
 import Success from './components/Success';
 import Footer from './components/Footer';
 
-type Step = 'landing' | 'upload' | 'form' | 'payment' | 'success';
+type Step = 'landing' | 'planSelection' | 'upload' | 'form' | 'payment' | 'success';
 
 function App() {
   const [currentStep, setCurrentStep] = useState<Step>('landing');
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [customerData, setCustomerData] = useState<CustomerData | null>(null);
   const [orderNumber] = useState(() => {
@@ -23,6 +26,11 @@ function App() {
   });
 
   const handleStartClick = () => {
+    setCurrentStep('planSelection');
+  };
+
+  const handlePlanSelect = (plan: Plan) => {
+    setSelectedPlan(plan);
     setCurrentStep('upload');
     // Scroll to upload section
     setTimeout(() => {
@@ -45,7 +53,7 @@ function App() {
   };
 
   const handleSupabaseSubmit = async (data: CustomerData) => {
-    if (!selectedFile) return;
+    if (!selectedFile || !selectedPlan) return;
 
     try {
       // 1. Insert customer data first
@@ -56,7 +64,11 @@ function App() {
           email: data.email,
           phone: data.phone,
           delivery_method: data.deliveryMethod,
-          order_number: orderNumber
+          order_number: orderNumber,
+          plan_id: selectedPlan.id,
+          plan_name: selectedPlan.name,
+          plan_price: selectedPlan.price,
+          plan_images: selectedPlan.images
         })
         .select()
         .single();
@@ -119,6 +131,8 @@ function App() {
 
   const renderCurrentStep = () => {
     switch (currentStep) {
+      case 'planSelection':
+        return <PlanSelection onSelectPlan={handlePlanSelect} />;
       case 'upload':
         return (
           <UploadSection
@@ -128,12 +142,13 @@ function App() {
           />
         );
       case 'form':
-        return <CustomerForm onSubmit={handleFormSubmit} />;
+        return <CustomerForm onSubmit={handleFormSubmit} selectedPlan={selectedPlan!} />;
       case 'payment':
         return (
           <PaymentSection
             customerData={customerData!}
             selectedFile={selectedFile!}
+            selectedPlan={selectedPlan!}
             onPaymentSuccess={handlePaymentSuccess}
           />
         );
@@ -141,6 +156,7 @@ function App() {
         return (
           <Success
             customerData={customerData!}
+            selectedPlan={selectedPlan!}
             orderNumber={orderNumber}
           />
         );
