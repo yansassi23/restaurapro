@@ -40,11 +40,18 @@ const Success = ({ customerData, selectedPlan, orderNumber }: SuccessProps) => {
             {customerData.imageUrl && (
               <div className="mt-4">
                 <p className="text-blue-800 font-medium mb-2">Sua foto foi salva com sucesso:</p>
-                <img 
-                  src={customerData.imageUrl} 
-                  alt="Foto enviada" 
-                  className="w-24 h-24 object-cover rounded-lg border mx-auto"
-                />
+                {customerData.imageUrls && customerData.imageUrls.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {customerData.imageUrls.map((url, index) => (
+                      <img 
+                        key={index}
+                        src={url} 
+                        alt={`Foto enviada ${index + 1}`} 
+                        className="w-20 h-20 object-cover rounded-lg border"
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>

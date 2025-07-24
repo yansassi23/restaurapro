@@ -6,12 +6,12 @@ import { supabase } from '../lib/supabase';
 
 interface PaymentSectionProps {
   customerData: CustomerData;
-  selectedFile: File;
+  selectedFiles: File[];
   selectedPlan: Plan;
   onPaymentSuccess: () => void;
 }
 
-const PaymentSection = ({ customerData, selectedFile, selectedPlan, onPaymentSuccess }: PaymentSectionProps) => {
+const PaymentSection = ({ customerData, selectedFiles, selectedPlan, onPaymentSuccess }: PaymentSectionProps) => {
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<'pending' | 'confirmed' | 'failed'>('pending');
   const [statusMessage, setStatusMessage] = useState('');
