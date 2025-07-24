@@ -12,7 +12,7 @@ export interface CustomerData {
   email: string;
   phone: string;
   deliveryMethod: string[];
-  imageUrl?: string;
+  imageUrls?: string[];
   id?: string;
 }
 
