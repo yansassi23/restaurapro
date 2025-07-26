@@ -31,6 +31,17 @@ const Success = ({ customerData, selectedPlan, orderNumber }: SuccessProps) => {
             <p className="text-blue-800 font-medium mb-2">
               Plano: {selectedPlan.name} • {selectedPlan.images} {selectedPlan.images === 1 ? 'foto' : 'fotos'} • R$ {selectedPlan.price},00
             </p>
+            {customerData.colorize && (
+              <p className="text-purple-700 font-medium mb-2">
+                ✨ Colorização solicitada
+              </p>
+            )}
+            {customerData.comments && (
+              <div className="mb-2">
+                <p className="text-blue-800 font-medium">Comentários:</p>
+                <p className="text-blue-700 text-sm italic">"{customerData.comments}"</p>
+              </div>
+            )}
             <p className="text-green-700 font-medium">
               ✅ Pagamento confirmado com sucesso!
             </p>
