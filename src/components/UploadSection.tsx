@@ -6,9 +6,22 @@ interface UploadSectionProps {
   selectedFiles: File[];
   maxFiles: number;
   onNext: () => void;
+  colorize: boolean;
+  setColorize: (colorize: boolean) => void;
+  comments: string;
+  setComments: (comments: string) => void;
 }
 
-const UploadSection = ({ onFilesSelect, selectedFiles, maxFiles, onNext }: UploadSectionProps) => {
+const UploadSection = ({ 
+  onFilesSelect, 
+  selectedFiles, 
+  maxFiles, 
+  onNext, 
+  colorize, 
+  setColorize, 
+  comments, 
+  setComments 
+}: UploadSectionProps) => {
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -161,6 +174,48 @@ const UploadSection = ({ onFilesSelect, selectedFiles, maxFiles, onNext }: Uploa
               </div>
             </div>
           )}
+          {/* Options Section */}
+          <div className="bg-gray-50 rounded-lg p-6 mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Opções de Restauração
+            </h3>
+            
+            {/* Colorize Option */}
+            <div className="mb-4">
+              <label className="flex items-center space-x-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={colorize}
+                  onChange={(e) => setColorize(e.target.checked)}
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                />
+                <div>
+                  <span className="text-gray-900 font-medium">Colorir foto (quando aplicável)</span>
+                  <p className="text-sm text-gray-600">
+                    Adicionar cores naturais à sua foto em preto e branco
+                  </p>
+                </div>
+              </label>
+            </div>
+
+            {/* Comments Section */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Comentários ou instruções especiais (opcional)
+              </label>
+              <textarea
+                value={comments}
+                onChange={(e) => setComments(e.target.value)}
+                rows={3}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                placeholder="Ex: Esta é uma foto do meu avô em 1950. Gostaria que fosse restaurada mantendo o tom sépia original..."
+                maxLength={500}
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                {comments.length}/500 caracteres
+              </p>
+            </div>
+          </div>
 
           {/* Status and Continue Button */}
           {selectedFiles.length > 0 && (

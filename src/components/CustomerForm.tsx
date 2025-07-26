@@ -14,6 +14,8 @@ export interface CustomerData {
   deliveryMethod: string[];
   imageUrls?: string[];
   id?: string;
+  colorize?: boolean;
+  comments?: string;
 }
 
 const CustomerForm = ({ onSubmit, selectedPlan }: CustomerFormProps) => {

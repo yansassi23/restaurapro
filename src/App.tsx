@@ -19,6 +19,8 @@ function App() {
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [customerData, setCustomerData] = useState<CustomerData | null>(null);
+  const [colorize, setColorize] = useState(false);
+  const [comments, setComments] = useState('');
   const [orderNumber] = useState(() => {
     // Try to get order number from URL first, then generate new one
     const urlParams = new URLSearchParams(window.location.search);
@@ -70,7 +72,9 @@ function App() {
           plan_name: selectedPlan.name,
           plan_price: selectedPlan.price,
           plan_images: selectedPlan.images,
-          image_count: selectedFiles.length
+          image_count: selectedFiles.length,
+          colorize: colorize,
+          comments: comments || null
         })
         .select()
         .single();
@@ -122,7 +126,9 @@ function App() {
       const customerDataWithImage: CustomerData = {
         ...data,
         imageUrls: imageUrls,
-        id: customerRecord.id
+        id: customerRecord.id,
+        colorize: colorize,
+        comments: comments
       };
 
       setCustomerData(customerDataWithImage);
@@ -149,6 +155,10 @@ function App() {
             selectedFiles={selectedFiles}
             maxFiles={selectedPlan?.images || 1}
             onNext={handleUploadNext}
+            colorize={colorize}
+            setColorize={setColorize}
+            comments={comments}
+            setComments={setComments}
           />
         );
       case 'form':
